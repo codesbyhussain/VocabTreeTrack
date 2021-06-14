@@ -1,0 +1,22 @@
+<title>Home Page</title>
+
+<div class='body'>
+    <a class= 'btn' href="{% url 'add' %}" style='background-color:rgb(66, 123, 197); color:black' ><br/><b>New word?</b></a>
+  <h3 style='color:black'> &uarr;Click here to add a word!&uarr;</h3>
+    <br/>
+    <a class= 'btn' href="{% url 'show' %}" style='background-color:rgb(20, 180, 220); color:black' ><br/><b>Show present tree</b></a>
+  <h3 style='color:black'> &uarr;Click here to know more about your current progress&uarr;</h3>
+    <br/>
+</div>
+
+<style>
+    .btn {
+  display:block;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  border: 1px solid rgb(47, 0, 255);
+  margin:auto;
+  text-color:'black';
+}
+</style>

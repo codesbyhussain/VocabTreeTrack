@@ -1,0 +1,61 @@
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+{% load mptt_tags %}
+<ul>
+    {% recursetree words %}
+
+        <li><button type= "button" 
+            class = "myBtn"
+            onclick="exampleOnclick( '{{node.description}}', '{{node.sample_sentence}}' )" >
+            {{ node }}
+
+        </button>
+        
+            {% if not node.is_leaf_node %}
+                <ul class="children" >
+                    {{ children }}
+                </ul>
+            {% endif %}
+        </li>
+    {% endrecursetree %}
+</ul>
+
+
+<script>
+    function exampleOnclick(desc , sent) {
+
+  var exampleModal = getExampleModal();
+
+  // Init the modal if it hasn't been already.
+  //if (!exampleModal) { exampleModal = initExampleModal(); }
+
+  setExampleModalContent(desc, sent);
+
+  // Show the modal.
+  $(exampleModal).modal('show');
+
+  (".close").click(function(){});
+ 
+}
+
+function getExampleModal() {
+  return document.getElementById('myModal');
+}
+
+function setExampleModalContent(desc , sent) {
+  getExampleModal().querySelector('.modal-body').innerHTML = desc;
+  getExampleModal().querySelector('.modal-sentence').innerHTML = sent;
+}
+
+</script>
+
+{%block meaning %}
+{%include 'modaltest.html' %}
+{% endblock meaning %}
