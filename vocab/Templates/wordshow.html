@@ -1,19 +1,14 @@
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<head><!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
 {% load mptt_tags %}
 <ul>
     {% recursetree words %}
 
-        <li><button type= "button" 
-            class = "myBtn"
-            onclick="exampleOnclick( '{{node.description}}', '{{node.sample_sentence}}' )" >
+        <li><button type="button" id="myBtn"
+            class = "btn btn-outline-secondary"
+            onclick="exampleOnclick( '{{node}}', '{{node.description}}', '{{node.sample_sentence}}' )" >
             {{ node }}
 
         </button>
@@ -29,19 +24,15 @@
 
 
 <script>
-    function exampleOnclick(desc , sent) {
+
+function exampleOnclick(name, desc , sent) {
 
   var exampleModal = getExampleModal();
 
-  // Init the modal if it hasn't been already.
-  //if (!exampleModal) { exampleModal = initExampleModal(); }
-
-  setExampleModalContent(desc, sent);
+  setExampleModalContent(name, desc, sent);
 
   // Show the modal.
   $(exampleModal).modal('show');
-
-  (".close").click(function(){});
  
 }
 
@@ -49,13 +40,110 @@ function getExampleModal() {
   return document.getElementById('myModal');
 }
 
-function setExampleModalContent(desc , sent) {
-  getExampleModal().querySelector('.modal-body').innerHTML = desc;
-  getExampleModal().querySelector('.modal-sentence').innerHTML = sent;
+function setExampleModalContent(name, desc , sent) {
+  getExampleModal().querySelector('.modal-header').innerHTML = '<h2> Meaning: '+ name + '</h2>';
+  getExampleModal().querySelector('.modal-body').innerHTML = '<h2>'+ desc + '</h2>';
+  getExampleModal().querySelector('.modal-sentence').innerHTML = '<h2>'+ sent + '</h2>';
 }
 
 </script>
+</head>
 
-{%block meaning %}
-{%include 'modaltest.html' %}
-{% endblock meaning %}
+<!--Modal pop up specifications below-->
+<head>
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <style>
+    body {font-family: Arial, Helvetica, sans-serif;}
+    
+    /* The Modal (background) */
+    .modal fade{
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); 
+      background-color: rgba(0,0,0,0.4); 
+      -webkit-animation-name: fadeIn; 
+      -webkit-animation-duration: 0.4s;
+      animation-name: fadeIn;
+      animation-duration: 0.4s;
+    }
+    
+    /* Modal Content */
+    .modal-content {
+      position: fixed;
+      bottom: 0;
+      background-color: #fefefe;
+      width: 100%;
+      -webkit-animation-name: slideIn;
+      -webkit-animation-duration: 0.4s;
+      animation-name: slideIn;
+      animation-duration: 0.4s;
+      text-align: center;
+    }
+    
+    .modal-header {
+      padding: 2px 16px;
+      background-color: #5cb85c;
+      color: white;
+      
+    }
+    
+    .modal-body {padding: 2px 16px;}
+    
+    .modal-footer {
+      padding: 2px 16px;
+      background-color: #5cb85c;
+      color: white;
+    }
+    
+    /* Add Animation */
+    @-webkit-keyframes slideIn {
+      from {bottom: -300px; opacity: 0} 
+      to {bottom: 0; opacity: 1}
+    }
+    
+    @keyframes slideIn {
+      from {bottom: -300px; opacity: 0}
+      to {bottom: 0; opacity: 1}
+    }
+    
+    @-webkit-keyframes fadeIn {
+      from {opacity: 0} 
+      to {opacity: 1}
+    }
+    
+    @keyframes fadeIn {
+      from {opacity: 0} 
+      to {opacity: 1}
+    }
+    </style>
+
+    </head>
+    <!-- The Modal --> 
+    <div id="myModal" class="modal fade" >
+      <!-- Modal content -->
+      <div class="modal-content">
+        <div class="modal-header">
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <div class="modal-sentence" style="margin: 0 auto;">
+          </div>
+        </div>
+      </div>
+    </div>
+    
